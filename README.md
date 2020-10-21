@@ -1,6 +1,4 @@
-##Stock Market Application
+##Trade Tales
 
-Twelve Data API
-
-apikey: 8abae5eb38324f5788036fd745d015d2
+###Trade Tales is an application that allow users to view general information on a requested stock market symbol using the Twelve Data API. This application also allows you to view the symbols Open, High and Low prices and Close prices and volume.
 
