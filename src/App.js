@@ -1,42 +1,33 @@
 import React, { Component } from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter, Router, Route, Link, Switch } from "react-router-dom";
 import axios from "axios";
+// import StockList from "./Components/StockList"
 
 
-//fetch the api using axios
+class App extends React.Component {
 
-class App extends Component {
-    constructor() {
-        super();
-        this.state = {
-          data: []
-        };
-      }
-render() {
-    return (
-axios ({
+componentDidMount = () => {
+axios({
+  baseURL: `https://api.twelvedata.com/time_series`,
   method: 'GET',
-  url: 'https://rapidapi.p.rapidapi.com/time_series',
-  params: {symbol: 'AMZN', interval: '1day', outputsize: '30', format: 'json'},
   headers: {
     'x-rapidapi-host': 'twelve-data1.p.rapidapi.com',
-    'x-rapidapi-key': '2b8d3472bamshb3c4f5ef0be4828p1ba36ejsnb64c20deed5d'
+    'x-rapidapi-key': '8abae5eb38324f5788036fd745d015d2'
   }
+})
+.then((response) => {
+console.log('Data', response.data)
+})
+.catch(() => {
+alert("THERE IS AN ERROR")
+})
 }
-
-// axios.request(options).then(function (response) {
-// 	console.log(response.data);
-// }).catch(function (error) {
-// 	console.error(error);
-// })
-
-)//axios
-)//return
-}//render
-}//Component
-
-
-
+  
+  render() {
+  return (
+  <div>
+      <h2>TEST</h2>
+  </div>
+  )}
+}
 export default App;
-
-
