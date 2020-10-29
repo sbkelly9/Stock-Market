@@ -5,29 +5,40 @@ import axios from "axios";
 
 
 class App extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+          data: []
+        }; //state
+      }
+  componentDidMount = () => {
+    axios({
+      baseURL: "https://coinranking1.p.rapidapi.com/coins",
+      method: "GET",
+      headers: {
+        "content-type": "application/octet-stream",
+        "x-rapidapi-host": "coinranking1.p.rapidapi.com",
+        "x-rapidapi-key": "2b8d3472bamshb3c4f5ef0be4828p1ba36ejsnb64c20deed5d",
+        "useQueryString": true
+      },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .then((data) => this.setState({ data }))
+      .catch(() => {
+        alert("THERE IS AN ERROR");
+      });
+  };
 
-componentDidMount = () => {
-axios({
-  baseURL: `https://api.twelvedata.com/time_series`,
-  method: 'GET',
-  headers: {
-    'x-rapidapi-host': 'twelve-data1.p.rapidapi.com',
-    'x-rapidapi-key': '8abae5eb38324f5788036fd745d015d2'
-  }
-})
-.then((response) => {
-console.log('Data', response.data)
-})
-.catch(() => {
-alert("THERE IS AN ERROR")
-})
-}
-  
   render() {
-  return (
-  <div>
-      <h2>TEST</h2>
-  </div>
-  )}
+      
+    return (
+      <React.Fragment>
+      <p>{ this.state.data }</p>
+      </React.Fragment>
+    );
+
+  }
 }
 export default App;
