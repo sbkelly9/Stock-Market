@@ -3,14 +3,16 @@ import { BrowserRouter, Router, Route, Link, Switch } from "react-router-dom";
 import axios from "axios";
 // import StockList from "./Components/StockList"
 
-
-class App extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-          data: []
-        }; //state
-      }
+class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      data: [],
+      base: [],
+      coins: [],
+      stats: []
+    }; //state
+  }
   componentDidMount = () => {
     axios({
       baseURL: "https://coinranking1.p.rapidapi.com/coins",
@@ -23,22 +25,48 @@ class App extends React.Component {
       },
     })
       .then((response) => {
-        console.log(response);
+        console.log(response.data.data);
+
+        let { base, stats, coins } = response.data.data
+
+        this.setState({ coins: coins, base: base, stats: stats }, () => console.log(this.state.coins))
+
       })
-      .then((data) => this.setState({ data }))
       .catch(() => {
         alert("THERE IS AN ERROR");
       });
   };
 
+  filterMethod = (coin) => {
+    let { name } = coin
+    if (name === "Bitcoin" || name === "Ethereum" || name === "Tether USD") {
+      return coin
+    }
+  }
   render() {
-      
-    return (
-      <React.Fragment>
-      <p>{ this.state.data }</p>
-      </React.Fragment>
-    );
+    let { coins } = this.state
 
+    if (coins) {
+
+      let filteredList = coins
+        .filter(coin => this.filterMethod(coin))
+        .map((dog, index) => {
+          return (
+            <div key={index}>
+              <h1>{dog.name}</h1>
+              <p>{dog.websiteUrl}</p>
+              <p>{dog.price}</p>
+            </div>
+          )
+        })
+
+      return (
+        <div>
+          {filteredList}
+        </div>
+      );
+    }
   }
 }
+
 export default App;
