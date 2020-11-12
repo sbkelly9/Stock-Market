@@ -50,12 +50,12 @@ class App extends Component {
 
       let filteredList = coins
         .filter(coin => this.filterMethod(coin))
-        .map((dog, index) => {
+        .map((coin, index) => {
           return (
             <div key={index}>
-              <h1>{dog.name}</h1>
-              <p>{dog.websiteUrl}</p>
-              <p>{dog.price}</p>
+              <h1>{coin.name}</h1>
+              <p>{coin.websiteUrl}</p>
+              <p>${coin.price}</p>
             </div>
           )
         })
